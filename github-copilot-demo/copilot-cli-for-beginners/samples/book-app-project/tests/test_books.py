@@ -47,7 +47,27 @@ def test_remove_book():
     book = collection.find_book_by_title("The Hobbit")
     assert book is None
 
-def test_remove_book_invalid():
+def test_find_by_year_range():
+    collection = BookCollection()
+    collection.add_book("Book A", "Author A", 2000)
+    collection.add_book("Book B", "Author B", 2005)
+    collection.add_book("Book C", "Author C", 2010)
+
+    # Test valid year range
+    books_found = collection.find_by_year_range(2000, 2005)
+    assert len(books_found) == 2  # Book A and Book B
+
+    # Test year range that includes no books
+    books_found = collection.find_by_year_range(2011, 2015)
+    assert len(books_found) == 0
+
+    # Test year range with a single book
+    books_found = collection.find_by_year_range(2005, 2010)
+    assert len(books_found) == 1  # Book B
+
+    # Test invalid year range
+    with pytest.raises(ValueError):
+        collection.find_by_year_range(2005, 2000)
     collection = BookCollection()
     result = collection.remove_book("Nonexistent Book")
     assert result is False
