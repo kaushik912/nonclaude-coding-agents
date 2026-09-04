@@ -44,6 +44,9 @@ output.json
 __pycache__/
 *.pyc
 *.pyo
+.venv/
+venv/
+.pytest_cache/
 
 # .NET
 bin/
