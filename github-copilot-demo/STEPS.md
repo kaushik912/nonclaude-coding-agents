@@ -17,7 +17,7 @@ https://github.com/burkeholland/cpm
       "api_key_env": "OPENROUTER_API_KEY",
       "models": [
         {
-          "id": "openai/gpt-4o-mini",
+          "id": "deepseek/deepseek-v4-flash-0731",
           "max_prompt_tokens": 100000,
           "max_output_tokens": 15000
         }
@@ -30,4 +30,9 @@ https://github.com/burkeholland/cpm
 - EDITOR="code" cpm edit
 ---
 - type `cpm`
-- choose the openrouter based model and you are good to go! 
+- choose the openrouter based model and you are good to go!
+
+---
+Models that worked:
+- openai/gpt-4o-mini
+- 
