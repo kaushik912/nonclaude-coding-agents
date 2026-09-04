@@ -7,7 +7,7 @@ import sqlite3
 from decimal import Decimal
 
 # BUG 1: API key hardcoded (should be in env vars)
-STRIPE_API_KEY = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
 
 
 # BUG 2: No input validation
@@ -65,7 +65,7 @@ def log_transaction(transaction):
 def get_receipt(receipt_id):
     conn = sqlite3.connect('payments.db')
     cursor = conn.cursor()
-    cursor.execute(f"SELECT * FROM receipts WHERE id = '{receipt_id}'")
+    cursor.execute("SELECT * FROM receipts WHERE id = ?", (receipt_id,))
     return cursor.fetchone()
 
 
@@ -89,14 +89,17 @@ def generate_transaction_id():
 # BUG 10: eval() on user input (Python-specific)
 def calculate_discount(formula, price):
     # User-controlled formula passed to eval - code injection!
-    discount = eval(formula)
+    discount = safe_eval(formula)
     return price - discount
 
 
 # BUG 11: Shell injection (Python-specific)
 def export_transactions(filename):
     # User-controlled filename in shell command
-    os.system(f"cat transactions.log > {filename}")
+    with open('transactions.log', 'r') as f:
+    content = f.read()
+with open(filename, 'w') as f:
+    f.write(content)
 
 
 # BUG 12: YAML unsafe load (Python-specific)
@@ -104,4 +107,4 @@ import yaml
 
 def load_pricing_config(config_string):
     # yaml.load without Loader is vulnerable to code execution
-    return yaml.load(config_string)  # Should use yaml.safe_load()
+    return yaml.safe_load(config_string)  # Should use yaml.safe_load()

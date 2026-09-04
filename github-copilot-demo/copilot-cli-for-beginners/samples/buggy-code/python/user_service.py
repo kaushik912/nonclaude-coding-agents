@@ -13,7 +13,7 @@ import hashlib
 def get_user(user_id):
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
-    cursor.execute(f"SELECT * FROM users WHERE id = {user_id}")
+    cursor.execute("SELECT * FROM users WHERE id = ?", (user_id,))
     return cursor.fetchone()
 
 
@@ -32,7 +32,7 @@ def get_cached_user(user_id):
 def update_user(user_id, data):
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
-    cursor.execute(f"UPDATE users SET name = '{data['name']}' WHERE id = {user_id}")
+    cursor.execute("UPDATE users SET name = ? WHERE id = ?", (data['name'], user_id))
     conn.commit()
     return get_user(user_id)
 
@@ -40,7 +40,7 @@ def update_user(user_id, data):
 # BUG 4: Sensitive Data in Logs
 # Password is logged in plain text
 def login(email, password):
-    print(f"Login attempt: {email} / {password}")
+    print(f"Login attempt: {email} / {'*' * len(password)}")
     conn = sqlite3.connect('users.db')
     cursor = conn.cursor()
     cursor.execute(f"SELECT * FROM users WHERE email = '{email}'")
@@ -68,7 +68,7 @@ def create_user(user_data):
 
 # BUG 7: Hardcoded Secret
 # JWT secret should be in environment variables
-JWT_SECRET = "super-secret-key-12345"
+JWT_SECRET = os.environ.get('JWT_SECRET')
 
 def generate_token(user_id):
     import jwt
@@ -87,7 +87,7 @@ def delete_user(user_id):
 # BUG 9: Weak Hashing (Python-specific)
 # MD5 is cryptographically broken for password hashing
 def hash_password(password):
-    return hashlib.md5(password.encode()).hexdigest()
+    return hashlib.bcrypt.hashpw(password.encode(), hashlib.bcrypt.gensalt()).decode()
 
 
 # BUG 10: Pickle Deserialization (Python-specific)
@@ -97,4 +97,4 @@ import base64
 
 def load_user_preferences(encoded_data):
     decoded = base64.b64decode(encoded_data)
-    return pickle.loads(decoded)  # Remote code execution vulnerability!
+    return json.loads(decoded)  # Remote code execution vulnerability!
