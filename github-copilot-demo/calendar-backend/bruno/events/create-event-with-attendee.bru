@@ -1,0 +1,41 @@
+meta {
+  name: Create Event With Attendee
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{baseUrl}}/api/events
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Project Review",
+    "startTime": "2026-09-15T14:00:00Z",
+    "endTime": "2026-09-15T15:00:00Z",
+    "attendees": [
+      {
+        "email": "alice@example.com",
+        "status": "PENDING"
+      }
+    ]
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("attendeeEventId", res.body.id);
+  }
+}
+
+tests {
+  test("create event with attendee returns 201", () => {
+    expect(res.status).to.equal(201);
+  });
+}

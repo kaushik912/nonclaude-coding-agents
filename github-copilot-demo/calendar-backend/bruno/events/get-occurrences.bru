@@ -1,0 +1,25 @@
+meta {
+  name: Get Recurring Occurrences
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/events/{{recurringEventId}}/occurrences?from=2026-09-10T00:00:00Z&to=2026-09-13T00:00:00Z
+  body: none
+  auth: none
+}
+
+tests {
+  test("occurrences returns 200", () => {
+    expect(res.status).to.equal(200);
+  });
+
+  test("materializes daily occurrences in range", () => {
+    expect(res.body).to.be.an("array");
+    expect(res.body.length).to.equal(3);
+    expect(res.body[0].startTime).to.equal("2026-09-10T09:00:00Z");
+    expect(res.body[1].startTime).to.equal("2026-09-11T09:00:00Z");
+    expect(res.body[2].startTime).to.equal("2026-09-12T09:00:00Z");
+  });
+}

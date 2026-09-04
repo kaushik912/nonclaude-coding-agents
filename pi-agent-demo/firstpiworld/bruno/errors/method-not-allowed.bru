@@ -1,0 +1,32 @@
+meta {
+  name: methods on /hello (405)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/hello
+  body: none
+  auth: none
+}
+
+tests {
+  test("status 405", function () {
+    expect(res.getStatus()).to.equal(405);
+  });
+
+  test("error payload is JSON", function () {
+    const type = res.getHeader("content-type") || "";
+    expect(type).to.match(/application\/json/);
+  });
+
+  test("error body marks Method Not Allowed", function () {
+    const body = res.getBody();
+    expect(body).to.have.property("status", 405);
+    expect(body).to.have.property("error", "Method Not Allowed");
+  });
+}
+
+docs {
+  Edge case: POST /hello is not allowed (only GET), expect 405.
+}

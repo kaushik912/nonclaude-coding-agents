@@ -1,0 +1,42 @@
+meta {
+  name: Create Event
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/events
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Team Standup",
+    "description": "Daily standup",
+    "location": "Room 1",
+    "startTime": "2026-09-10T09:00:00Z",
+    "endTime": "2026-09-10T09:30:00Z"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("eventId", res.body.id);
+  }
+}
+
+tests {
+  test("create event returns 201", () => {
+    expect(res.status).to.equal(201);
+  });
+
+  test("returns created event with id", () => {
+    expect(res.body.id).to.be.a("number");
+    expect(res.body.title).to.equal("Team Standup");
+  });
+}

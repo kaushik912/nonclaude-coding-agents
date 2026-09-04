@@ -1,0 +1,38 @@
+meta {
+  name: Add Attendee
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{baseUrl}}/api/events/{{attendeeEventId}}/attendees
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "bob@example.com",
+    "status": "TENTATIVE"
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("attendeeId", res.body.id);
+  }
+}
+
+tests {
+  test("add attendee returns 201", () => {
+    expect(res.status).to.equal(201);
+  });
+
+  test("returns attendee with email", () => {
+    expect(res.body.email).to.equal("bob@example.com");
+  });
+}

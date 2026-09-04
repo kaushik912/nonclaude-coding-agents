@@ -1,0 +1,37 @@
+meta {
+  name: Update Event
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{baseUrl}}/api/events/{{eventId}}
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Team Standup (Updated)",
+    "description": "Daily standup - updated",
+    "location": "Room 2",
+    "startTime": "2026-09-10T10:00:00Z",
+    "endTime": "2026-09-10T10:30:00Z"
+  }
+}
+
+tests {
+  test("update event returns 200", () => {
+    expect(res.status).to.equal(200);
+  });
+
+  test("reflects updated fields", () => {
+    expect(res.body.title).to.equal("Team Standup (Updated)");
+    expect(res.body.location).to.equal("Room 2");
+    expect(res.body.startTime).to.equal("2026-09-10T10:00:00Z");
+  });
+}

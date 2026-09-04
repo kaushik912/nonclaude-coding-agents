@@ -1,0 +1,38 @@
+meta {
+  name: GET /hello
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/hello
+  body: none
+  auth: none
+}
+
+tests {
+  test("status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("returns plain-text greeting", function () {
+    const type = res.getHeader("content-type") || "";
+    expect(type).to.match(/text\/plain/);
+  });
+
+  test("body contains expected greeting", function () {
+    const body = res.getBody();
+    expect(body).to.be.a("string");
+    expect(body).to.contain("Hello, World!");
+    expect(body).to.contain("firstpiworld");
+  });
+
+  test("responds quickly", function () {
+    expect(res.getResponseTime()).to.be.below(2000);
+  });
+}
+
+docs {
+  Happy-path smoke test for the firstpiworld hello endpoint.
+  Requires the app running on localhost:8080 (./mvnw spring-boot:run).
+}

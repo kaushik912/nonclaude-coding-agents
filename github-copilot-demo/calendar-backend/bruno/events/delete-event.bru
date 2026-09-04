@@ -1,0 +1,17 @@
+meta {
+  name: Delete Event
+  type: http
+  seq: 3
+}
+
+delete {
+  url: {{baseUrl}}/api/events/{{eventId}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("delete event returns 204", () => {
+    expect(res.status).to.equal(204);
+  });
+}

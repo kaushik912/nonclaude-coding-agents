@@ -1,0 +1,35 @@
+---
+status: approved
+---
+# Calendar Backend (Google Calendar-style, Spring Boot + MySQL)
+
+## Problem
+There is no backend for a calendar application. Users need a server-side API to
+manage their calendar data — events, recurring schedules, attendees, availability
+and reminders — persisted in MySQL. Without this, no client (web/mobile) can
+store or retrieve calendar information.
+
+## Goal
+Build a purely backend Google-Calendar-style application using Spring Boot and
+MySQL. It exposes a REST API to create, read, update and delete calendar events,
+support recurring events, manage invitees/attendees, detect availability/conflicts,
+and schedule reminders. The API is documented with OpenAPI/Swagger and verified
+with a Bruno collection of smoke tests covering the happy scenarios.
+
+## Non-goals
+- No user authentication/authorization (single-user MVP, no auth for now)
+- No frontend / UI — backend API only
+- No real email/push delivery of reminders (reminders are modeled and stored only)
+- No calendar sharing / multiple calendars per user
+- No timezone-aware DST edge-case engine beyond basic UTC handling
+
+## Acceptance criteria
+- Events can be created, read, updated and deleted via the REST API and are persisted in MySQL.
+- Events support a title, start/end time, and optional description/location.
+- Recurring events can be defined (daily/weekly/monthly) and their occurrences are materialized/queryable.
+- Events can have multiple attendees, each with an attendee status (accepted/declined/tentative/pending).
+- The API reports availability/conflicts when an event overlaps an existing event in the same time range.
+- Events can carry reminders (offset before start) that are stored and returned by the API.
+- The REST API is documented via OpenAPI/Swagger (springdoc), reachable at /swagger-ui.html and /v3/api-docs.
+- A Bruno collection with smoke tests covers the happy scenarios for events CRUD, recurrence, attendees, conflicts and reminders.
+- The project builds and tests pass via a documented Makefile `test` target.

@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "bruno-test-writer": {
+      "source": "bruno-collections/bruno-agent-skills",
+      "sourceType": "github",
+      "skillPath": "bruno-test-writer/SKILL.md",
+      "computedHash": "84253ef533dbc3156156bfecef03a84397162fb79320db4fad19465ab6caff40"
+    },
+    "java-springboot": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/java-springboot/SKILL.md",
+      "computedHash": "f1b9c6b1277178fc33e5a612761c1cd1cf6ab5f946d05d69d52026d142c0a0c1"
+    },
+    "spec-agnostic": {
+      "source": "kaushik912/my-claude-skills",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/spec-agnostic/SKILL.md",
+      "computedHash": "6068ee0c1efae8806eaab93cc0041933cee3aec1e932070ceab8fea377d47fac"
+    },
+    "spring-ai-mcp-server-patterns": {
+      "source": "giuseppe-trisciuoglio/developer-kit",
+      "sourceType": "github",
+      "skillPath": "plugins/developer-kit-java/skills/spring-ai-mcp-server-patterns/SKILL.md",
+      "computedHash": "791513be92f50bc3a927ab7072b24f0dea8f6281bf6c745d75f2e202334b853a"
+    },
+    "ticket-spec-agnostic": {
+      "source": "kaushik912/my-claude-skills",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/ticket-spec-agnostic/SKILL.md",
+      "computedHash": "aa1533b8753625fbae384c17fa0d1c1b07eb7e24be5aa1f76d6625b1d542b8c1"
+    }
+  }
+}

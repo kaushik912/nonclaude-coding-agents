@@ -1,0 +1,17 @@
+meta {
+  name: Get Deleted Event (404)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/events/{{eventId}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("deleted event returns 404", () => {
+    expect(res.status).to.equal(404);
+  });
+}

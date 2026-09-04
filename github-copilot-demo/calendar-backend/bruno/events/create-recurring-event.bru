@@ -1,0 +1,40 @@
+meta {
+  name: Create Recurring Event
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{baseUrl}}/api/events
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Daily Standup",
+    "startTime": "2026-09-10T09:00:00Z",
+    "endTime": "2026-09-10T09:30:00Z",
+    "recurrence": {
+      "frequency": "DAILY",
+      "interval": 1,
+      "until": "2026-09-12T09:00:00Z"
+    }
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("recurringEventId", res.body.id);
+  }
+}
+
+tests {
+  test("create recurring event returns 201", () => {
+    expect(res.status).to.equal(201);
+  });
+}
