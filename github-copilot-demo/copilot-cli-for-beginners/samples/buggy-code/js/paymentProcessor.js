@@ -5,7 +5,7 @@
 const stripe = require('stripe');
 
 // BUG 1: API key hardcoded (should be in env vars)
-const stripeClient = stripe('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+const stripeClient = stripe(process.env.STRIPE_API_KEY);
 
 // BUG 2: No input validation
 async function processPayment(amount, currency, cardToken) {
@@ -60,7 +60,7 @@ async function logTransaction(transaction) {
 
 // BUG 7: SQL injection in receipt lookup
 async function getReceipt(receiptId) {
-  return db.query(`SELECT * FROM receipts WHERE id = '${receiptId}'`);
+  return db.query(`SELECT * FROM receipts WHERE id = ?`, [receiptId]);
 }
 
 // BUG 8: Integer overflow risk

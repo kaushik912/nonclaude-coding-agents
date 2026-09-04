@@ -10,7 +10,7 @@ const db = require('./db');
 // BUG 1: SQL Injection
 // The userId is directly concatenated into the query string
 async function getUser(userId) {
-  return db.query(`SELECT * FROM users WHERE id = ${userId}`);
+  return db.query(`SELECT * FROM users WHERE id = ?`, [userId]);
 }
 
 // BUG 2: Race Condition
@@ -33,7 +33,7 @@ async function updateUser(userId, data) {
 // BUG 4: Sensitive Data in Logs
 // Password is logged in plain text
 async function login(email, password) {
-  console.log(`Login attempt: ${email} / ${password}`);
+  console.log(`Login attempt: ${email} / ${'*'.repeat(password.length)}`);
   const user = await db.query(`SELECT * FROM users WHERE email = '${email}'`);
   if (user.password === password) {
     return { success: true, user };
@@ -47,7 +47,7 @@ async function verifyPassword(inputPassword, storedPassword) {
   return inputPassword == storedPassword;
 }
 
-// BUG 6: No Input Validation
+// Implement input validation for user inputs to prevent injection attacks.
 // Directly using user input without any validation
 async function createUser(userData) {
   const query = `INSERT INTO users (name, email, password) VALUES ('${userData.name}', '${userData.email}', '${userData.password}')`;
@@ -56,7 +56,7 @@ async function createUser(userData) {
 
 // BUG 7: Hardcoded Secret
 // JWT secret should be in environment variables
-const JWT_SECRET = 'super-secret-key-12345';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 function generateToken(userId) {
   return jwt.sign({ userId }, JWT_SECRET);
