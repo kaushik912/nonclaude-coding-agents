@@ -1,0 +1,21 @@
+meta {
+  name: API Docs Reachable
+  type: http
+  seq: 19
+}
+
+get {
+  url: {{baseUrl}}/v3/api-docs
+  body: none
+  auth: none
+}
+
+tests {
+  test("openapi docs are reachable", () => {
+    expect(res.status).to.equal(200);
+  });
+
+  test("returns an openapi spec", () => {
+    expect(res.body.openapi).to.be.a("string");
+  });
+}

@@ -1,0 +1,17 @@
+meta {
+  name: Swagger UI Reachable
+  type: http
+  seq: 18
+}
+
+get {
+  url: {{baseUrl}}/swagger-ui.html
+  body: none
+  auth: none
+}
+
+tests {
+  test("swagger ui is reachable", () => {
+    expect(res.status).to.be.oneOf([200, 301, 302, 307, 308]);
+  });
+}

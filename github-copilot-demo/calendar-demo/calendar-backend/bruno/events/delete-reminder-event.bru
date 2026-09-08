@@ -1,0 +1,17 @@
+meta {
+  name: Delete Reminder Event
+  type: http
+  seq: 17
+}
+
+delete {
+  url: {{baseUrl}}/api/events/{{reminderEventId}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("delete reminder event returns 204", () => {
+    expect(res.status).to.equal(204);
+  });
+}

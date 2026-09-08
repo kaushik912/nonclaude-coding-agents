@@ -2,6 +2,7 @@ package com.example.calendar.event;
 
 import com.example.calendar.attendee.Attendee.Status;
 import com.example.calendar.recurrence.RecurrenceRule.Frequency;
+import com.example.calendar.reminder.Reminder.Method;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.Instant;
@@ -14,7 +15,8 @@ public record EventRequest(
         @NotNull Instant startTime,
         @NotNull Instant endTime,
         RecurrenceRequest recurrence,
-        List<AttendeeRequest> attendees) {
+        List<AttendeeRequest> attendees,
+        List<ReminderRequest> reminders) {
 
     public record RecurrenceRequest(
             @NotNull Frequency frequency,
@@ -25,5 +27,10 @@ public record EventRequest(
     public record AttendeeRequest(
             @NotBlank String email,
             Status status) {
+    }
+
+    public record ReminderRequest(
+            @NotNull Method method,
+            @NotNull Integer minutesBefore) {
     }
 }

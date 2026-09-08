@@ -1,0 +1,22 @@
+meta {
+  name: Get Event With Reminders
+  type: http
+  seq: 16
+}
+
+get {
+  url: {{baseUrl}}/api/events/{{reminderEventId}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("get event returns 200", () => {
+    expect(res.status).to.equal(200);
+  });
+
+  test("read-back includes the reminders", () => {
+    expect(res.body.reminders).to.be.an("array");
+    expect(res.body.reminders.length).to.equal(2);
+  });
+}

@@ -1,0 +1,17 @@
+meta {
+  name: Delete Attendee Event
+  type: http
+  seq: 11
+}
+
+delete {
+  url: {{baseUrl}}/api/events/{{attendeeEventId}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("delete attendee event returns 204", () => {
+    expect(res.status).to.equal(204);
+  });
+}

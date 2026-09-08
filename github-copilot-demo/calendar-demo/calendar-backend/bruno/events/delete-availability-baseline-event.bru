@@ -1,0 +1,17 @@
+meta {
+  name: Delete Availability Baseline Event
+  type: http
+  seq: 14
+}
+
+delete {
+  url: {{baseUrl}}/api/events/{{availabilityEventId}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("delete availability baseline event returns 204", () => {
+    expect(res.status).to.equal(204);
+  });
+}

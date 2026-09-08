@@ -1,0 +1,22 @@
+meta {
+  name: Check Availability Conflict
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{baseUrl}}/api/events/availability?from=2026-09-20T10:30:00Z&to=2026-09-20T11:30:00Z
+  body: none
+  auth: none
+}
+
+tests {
+  test("availability check returns 200", () => {
+    expect(res.status).to.equal(200);
+  });
+
+  test("reports the overlapping baseline event", () => {
+    const ids = res.body.map((e) => e.id);
+    expect(ids).to.include(bru.getVar("availabilityEventId"));
+  });
+}

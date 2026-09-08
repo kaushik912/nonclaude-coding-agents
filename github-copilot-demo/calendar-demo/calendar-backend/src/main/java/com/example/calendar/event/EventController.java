@@ -1,5 +1,6 @@
 package com.example.calendar.event;
 
+import com.example.calendar.availability.AvailabilityService;
 import com.example.calendar.recurrence.RecurrenceService.Occurrence;
 import jakarta.validation.Valid;
 import java.time.Instant;
@@ -22,9 +23,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class EventController {
 
     private final EventService eventService;
+    private final AvailabilityService availabilityService;
 
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService, AvailabilityService availabilityService) {
         this.eventService = eventService;
+        this.availabilityService = availabilityService;
     }
 
     @PostMapping
@@ -36,6 +39,13 @@ public class EventController {
     @GetMapping
     public List<EventResponse> list() {
         return eventService.list();
+    }
+
+    @GetMapping("/availability")
+    public List<EventResponse> availability(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant from,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant to) {
+        return availabilityService.findConflicts(from, to);
     }
 
     @GetMapping("/{id}")

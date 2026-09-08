@@ -1,0 +1,48 @@
+meta {
+  name: Create Event With Reminders
+  type: http
+  seq: 15
+}
+
+post {
+  url: {{baseUrl}}/api/events
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "title": "Dentist Appointment",
+    "startTime": "2026-09-22T15:00:00Z",
+    "endTime": "2026-09-22T16:00:00Z",
+    "reminders": [
+      { "method": "EMAIL", "minutesBefore": 30 },
+      { "method": "POPUP", "minutesBefore": 10 }
+    ]
+  }
+}
+
+script:post-response {
+  if (res.status === 201) {
+    bru.setVar("reminderEventId", res.body.id);
+  }
+}
+
+tests {
+  test("create event with reminders returns 201", () => {
+    expect(res.status).to.equal(201);
+  });
+
+  test("returns the stored reminders", () => {
+    expect(res.body.reminders).to.be.an("array");
+    expect(res.body.reminders.length).to.equal(2);
+    expect(res.body.reminders[0].method).to.equal("EMAIL");
+    expect(res.body.reminders[0].minutesBefore).to.equal(30);
+    expect(res.body.reminders[1].method).to.equal("POPUP");
+    expect(res.body.reminders[1].minutesBefore).to.equal(10);
+  });
+}

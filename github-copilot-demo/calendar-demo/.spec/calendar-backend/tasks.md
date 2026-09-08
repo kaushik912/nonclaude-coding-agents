@@ -16,11 +16,11 @@ Testing seam: **single** — Bruno collection (`bru run`) of happy-scenario smok
 - [x] Implement EventService.delete + EventController DELETE
 - [x] Write Bruno smoke test: recurring event occurrences are materialized/queryable
 - [x] Implement RecurrenceRule entity + RecurrenceService + GET /occurrences
-- [ ] Write Bruno smoke test: add attendee + update attendee status
-- [ ] Implement Attendee entity + attendee endpoints (POST/PATCH/GET)
-- [ ] Write Bruno smoke test: availability/conflict check reports overlapping events
-- [ ] Implement AvailabilityService + GET /availability
-- [ ] Write Bruno smoke test: reminders are stored and returned
-- [ ] Implement Reminder entity + reminder handling in event create/read
-- [ ] Write Bruno smoke test: /swagger-ui.html and /v3/api-docs are reachable (200/3xx)
-- [ ] Write Makefile with `test` target running the Bruno collection (literal command)
+- [x] Write Bruno smoke test: add attendee + update attendee status
+- [x] Implement Attendee entity + attendee endpoints (POST/PATCH/GET)
+- [x] Write Bruno smoke test: availability/conflict check reports overlapping events
+- [x] Implement AvailabilityService + GET /availability
+- [x] Write Bruno smoke test: reminders are stored and returned
+- [x] Implement Reminder entity + reminder handling in event create/read
+- [x] Write Bruno smoke test: /swagger-ui.html and /v3/api-docs are reachable (200/3xx)
+- [x] Write Makefile with `test` target running the Bruno collection (literal command)
