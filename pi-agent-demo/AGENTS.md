@@ -11,3 +11,5 @@ If a task requires Docker, stop and ask me first — I keep Docker off by defaul
 For OpenRouter, always use `deepseek/deepseek-v4-flash-latest` in spring-ai projects or any AI project needing an API key.
 
 prefer `pi install -l` for project specific installation of extension. If it works, we can move it to user space.
+
+Avoid running the `mvn spring-boot:run` or app starting commands. I will do it myself. You stick to only compiling and running tests.
