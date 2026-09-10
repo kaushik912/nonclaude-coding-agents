@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "shell": {
+      "default": "prompt",
+      "allow": [
+        "ls*",
+        "cat*",
+        "grep*",
+        "find*",
+        "pwd",
+        "git status*",
+        "git diff*",
+        "git log*",
+        "git branch*",
+        "git show*",
+        "node -v",
+        "npm list*"
+      ],
+      "deny": [
+        "rm -rf /",
+        "git push --force*",
+        "git reset --hard*"
+      ]
+    }
+  }
+}

@@ -11,6 +11,7 @@ This repo currently contains one project: `calendar-backend/` (Spring Boot REST 
 - Build: `./mvnw compile`
 - Run app: `./mvnw spring-boot:run` (needs MySQL running locally, see below)
 - Unit/integration tests (JUnit): `./mvnw test`
+- Run a single JUnit test: `./mvnw test -Dtest=ClassName#methodName`
 - Smoke tests (Bruno, against a running app): `make test` — equivalent to `cd bruno && bru run events -r --env dev`. Requires the Bruno CLI (`bru`) installed and the app running on `localhost:8080`.
 - Run a single Bruno request: `cd bruno && bru run events/<file>.bru --env dev`
 
@@ -18,7 +19,7 @@ There is no local MySQL/Docker setup checked into this repo. The app expects a M
 
 ## Architecture
 
-Single Spring Boot 4.1 (Java 17) app, layered `Controller -> Service -> Repository -> MySQL`, schema managed by Flyway (`src/main/resources/db/migration/V1__init.sql`), API documented via springdoc-openapi (`/swagger-ui.html`, `/v3/api-docs`).
+Single Spring Boot 4.1 (Java 17) app, layered `Controller -> Service -> Repository -> MySQL`, schema managed by Flyway (`src/main/resources/db/migration/V1__init.sql`), API documented via springdoc-openapi (`/swagger-ui.html`, `/v3/api-docs`). Entities use Lombok for getters/setters/constructors — don't hand-write boilerplate that Lombok annotations already generate.
 
 Package layout mirrors domain concepts under `com.example.calendar`:
 - `event/` — `Event` entity, `EventRepository`, `EventService` (CRUD, delegates recurrence/attendee/reminder persistence), `EventController` (all `/api/events*` routes including `/availability` and `/{id}/occurrences`), `EventRequest`/`EventResponse` DTOs.
