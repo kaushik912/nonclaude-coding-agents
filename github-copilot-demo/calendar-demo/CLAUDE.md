@@ -37,5 +37,5 @@ Key design choices to preserve when extending this code:
 ## Project conventions (from global rules)
 
 - New Spring dependencies: check for `springdoc-openapi` already present before adding it (it already is — see pom.xml). Annotate new controllers with `@Tag`/`@Operation`.
-- JUnit tests use Given/When/Then structure (see `~/github_projs/my-claude-skills` testing-style rule) — applies to any new `src/test/java` tests, not the Bruno suite.
+- JUnit tests use Given/When/Then structure (see `~/github_projs/my-claude-lib` testing-style rule) — applies to any new `src/test/java` tests, not the Bruno suite.
 - After fixing an API bug (status codes, validation, business logic, contract issues), offer a regression test per the `regression-testing` rule — default to a Bruno `.bru` test here since this is not currently RestAssured-based (matches the existing suite), unless the user prefers otherwise.

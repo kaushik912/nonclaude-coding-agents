@@ -1,6 +1,6 @@
 When reporting information to me, be extremely concise and sacrifice grammar for sake of concision.
 
-While writing new skill, usually put in my custom skills folder as it is git-controlled and i can easily manage changes: /home/kaush/github_projs/my-claude-skills
+While writing new skill, usually put in my custom skills folder as it is git-controlled and i can easily manage changes: /home/kaush/github_projs/my-claude-lib
 
 Always use a venv when running/installing for Python scripts. Never use --break-system-packages or user-wide pip installs.
 
