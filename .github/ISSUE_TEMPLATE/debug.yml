@@ -3,36 +3,6 @@ description: Something is broken or behaving unexpectedly. Give enough detail to
 title: "[DEBUG] "
 labels: ["bug"]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Fill in as much as you can. Paste real output, not paraphrases.
-
-  - type: dropdown
-    id: area
-    attributes:
-      label: Where does it happen?
-      options:
-        - github-copilot-demo / calendar-demo
-        - github-copilot-demo / coder-agent-test
-        - github-copilot-demo / copilot-cli-for-beginners
-        - pi-agent-demo / rest-api
-        - Other / not sure
-    validations:
-      required: true
-
-  - type: dropdown
-    id: agent
-    attributes:
-      label: Agent / tool involved
-      options:
-        - GitHub Copilot CLI
-        - Pi agent
-        - Both
-        - None (plain app code)
-    validations:
-      required: true
-
   - type: textarea
     id: summary
     attributes:
@@ -71,32 +41,9 @@ body:
       label: Logs / stack trace / agent output
       description: Full error text, or the agent transcript if the agent misbehaved. Redact secrets.
       render: shell
-    validations:
-      required: false
 
   - type: textarea
     id: tried
     attributes:
       label: What have you already tried?
       description: Fixes attempted, hypotheses ruled out, does it happen every time?
-    validations:
-      required: false
-
-  - type: input
-    id: env
-    attributes:
-      label: Environment
-      description: OS, Node/Java/Python version, agent CLI version, model used.
-      placeholder: "WSL2 Ubuntu, Node 22, copilot 1.x, model gpt-5"
-    validations:
-      required: false
-
-  - type: checkboxes
-    id: checks
-    attributes:
-      label: Checklist
-      options:
-        - label: I searched existing issues for duplicates
-          required: true
-        - label: I removed secrets/tokens from logs
-          required: true
